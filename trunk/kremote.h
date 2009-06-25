@@ -31,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AMAROK 2
 #define NO_PLAYER 3
 
+#define KDE4
+
 void terminate(int);
 void closeDaemon();
 int isKaffeine();

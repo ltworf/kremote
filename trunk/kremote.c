@@ -32,11 +32,20 @@ int main(int argc, char * argv[]) {
 		if (argc>1)port=argv[1]; else port="/dev/ttyS0";
 		execlp("remoteDaemon","remoteDaemon", port ,(char *)0);//Exec the daemon
 		printf("Can't find remoteDaemon executable");
+		#ifdef KDE4
+			system("kdialog --title kremote --passivepopup \"Can't find remoteDaemon executable\"");
+#else
 		system("dcop knotify Notify notify executableError kremote \"Can't find remoteDaemon executable\" '' '' 16 0");
+#endif
 		
 	}
 
+#ifdef KDE4
+system("kdialog --title kremote --passivepopup \"Ready to work\"");
+#else
 	system("dcop knotify Notify notify ready kremote \"Ready to work\" '' '' 16 0");
+#endif
+
 
 	char buf;//Buffer containing the remote command issued	
 	int shift=FALSE;
@@ -90,6 +99,25 @@ void action (char cmd, int shift) {
 		}
 	} else if (mode==AMAROK) {
 		switch (cmd) {
+#ifdef KDE4
+
+			//Volume
+			case '+': command="qdbus org.kde.amarok /Player VolumeDown -5"; break;
+			case '-': command="qdbus org.kde.amarok /Player VolumeDown 5"; break;
+			case 'M': command="qdbus org.kde.amarok /Player Mute"; break;
+			
+			//Basic controls
+			case 'P': command="qdbus org.kde.amarok /Player Pause"; break;
+			case 'S': command="qdbus org.kde.amarok /Player Stop"; break;
+			case 'p': command="qdbus org.kde.amarok /Player Pause"; break;
+			case 'J': command="qdbus org.kde.amarok /MainApplication quit"; break;//Not sure if have to keep that
+			
+			//Position
+			case '<': command="qdbus org.kde.amarok /Player Prev"; break;
+			case '>': command="qdbus org.kde.amarok /Player Next"; break;
+			case '«': command="dcop amarok player seekRelative -"; break;
+			case '»': command="dcop amarok player seekRelative +10"; break;
+#else
 			//Volume
 			case '+': command="dcop amarok player volumeUp"; break;
 			case '-': command="dcop amarok player volumeDown"; break;
@@ -104,11 +132,16 @@ void action (char cmd, int shift) {
 			//Position
 			case '<': command="dcop amarok player prev"; break;
 			case '>': command="dcop amarok player next"; break;
-			case '«': command="dcop amarok player seekRelative -10"; break;
-			case '»': command="dcop amarok player seekRelative +10"; break;
+			case '«': command="m=`qdbus org.kde.amarok /Player PositionGet`-10000; p=`echo $m |bc`; qdbus org.kde.amarok /Player PositionSet $p"; break;
+			case '»': command="m=`qdbus org.kde.amarok /Player PositionGet`+10000; p=`echo $m |bc`; qdbus org.kde.amarok /Player PositionSet $p"; break;
+#endif
 		}
 	} else {//Executing Amarok
+#ifdef KDE4
+system("kdialog --title kremote --passivepopup \"Executing Amarok\"");
+#else
 		system("dcop knotify Notify notify executingAmarok kremote \"Executing Amarok\" '' '' 16 0");
+#endif
 		int pid=fork();
 		if (pid==0)			
 			execlp("amarok","amarok",(char *)0);//Exec amarok
@@ -133,7 +166,11 @@ int isKaffeine() {
 	Returns true if Amarok is running
 */
 int isAmarok() {
+#ifdef KDE4
+	if (system("qdbus |fgrep org.kde.amarok")==0) return TRUE;
+#else
 	if (system("dcop |fgrep amarok")==0) return TRUE;
+#endif
 	return FALSE;
 }
 

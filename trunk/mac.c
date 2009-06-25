@@ -83,13 +83,6 @@ void button (char button) {
 	fflush(stdout);
 
 }
-void version() {	
-	printf("Remote control daemon, version 1\n");
-}
-void help() {
-	printf("command [OPTIONS] /dev/usb/hiddevSomething\n");
-	exit(0);
-}
 
 void close(int signum) {
 	printf("Closing remote control daemon...\n");

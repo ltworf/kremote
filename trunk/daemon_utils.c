@@ -18,6 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @author Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
+#include <stdio.h>
+#include "daemon_utils.h"
+
+
 void version() {    
     printf("Remote control daemon, version 1\n");
 }

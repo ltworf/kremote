@@ -16,7 +16,7 @@
 
 CC=gcc
 #DEFS=-Ddebug
-OFLAGS=-O3
+OFLAGS=-O2
 #-pedantic -Wextra
 CFLAGS=-Wall $(DEFS) $(ARCHFLAGS)  -Wformat
 LDFLAGS=-lpthread
@@ -24,7 +24,7 @@ LDFLAGS=-lpthread
 
 all: macbook creative mplayer kremote
 
-macbook: mac.o
+macbook: mac.o daemon_utils.o
 	echo "Compiling the MacBook daemon"
 	$(CC) -ggdb3 $(LDFLAGS) $(ARCHFLAGS) $+ -o $@		
 	#gcc -O2 -o remoteDaemon.mac mac.c

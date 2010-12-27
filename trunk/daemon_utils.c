@@ -28,6 +28,5 @@ void version() {
 
 void help() {
     printf("command [OPTIONS] /device\n");
-    printf("command [OPTIONS] /device\n");
     exit(0);
 }

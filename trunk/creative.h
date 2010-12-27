@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FALSE 0
 #define TRUE 1
 
-void close(int);
+void quit(int);
 void openDev(char*);
 void button(int);
 void help();

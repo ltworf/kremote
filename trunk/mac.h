@@ -27,10 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FALSE 0
 #define TRUE 1
 
-void close(int fd);
+void quit(int fd);
 void button(char button);
-void help();
-void version();
 
 #define SIGN_LEN 32
 

@@ -18,7 +18,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @author Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <string.h>
+
+
 #include "mac.h"
+#include "daemon_utils.h"
 #define _POSIX_SOURCE 1 /* POSIX compliant source */
 
 int fd;//Descriptor for the serial port
@@ -45,7 +54,7 @@ int main(int argc, char * argv[]) {
     }
 
     //Adds an handler to the SIGINT
-    signal(SIGINT, &close);
+    signal(SIGINT, &quit);
 
     fd = open(device, O_RDONLY);
 
@@ -84,7 +93,7 @@ void button (char button) {
 
 }
 
-void close(int signum) {
+void quit(int signum) {
     printf("Closing remote control daemon...\n");
     exit (0);
 }

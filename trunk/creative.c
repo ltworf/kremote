@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <fcntl.h>
 #include <termios.h>
 
+#include "daemon_utils.h"
 #include "creative.h"
 
 #define BAUDRATE B2400
@@ -68,7 +69,7 @@ int main(int argc, char * argv[]) {
     }
 
     //Adds an handler to the SIGINT
-    signal(SIGINT, &close);
+    signal(SIGINT, &quit);
 
     openDev(device);
 
@@ -113,15 +114,8 @@ void button (int button) {
     fflush(stdout);
 
 }
-void version() {
-    printf("Remote control daemon, version 1\n");
-}
-void help() {
-    printf("command [OPTIONS] /dev/ttySomething");
-    exit(0);
-}
 
-void close(int signum) {
+void quit(int signum) {
     printf("Closing remote control daemon...\n");
     tcsetattr(fd,TCSANOW,&oldtio);//Restores the old attributes
     exit (0);

@@ -29,7 +29,7 @@ macbook: mac.o daemon_utils.o
 	$(CC) -ggdb3 $(LDFLAGS) $(ARCHFLAGS) $+ -o $@		
 	#gcc -O2 -o remoteDaemon.mac mac.c
 
-creative: creative.o 
+creative: creative.o daemon_utils.o
 	echo "Compiling the creative daemon"
 	$(CC) -ggdb3 $(LDFLAGS) $(ARCHFLAGS) $+ -o $@		
 	#gcc -O2 -o remoteDaemon.cre main.c

@@ -51,4 +51,8 @@ kremote.c: kremote.h
 daemon_utils.c: daemon_utils.h
 
 clean:
-	rm -f *~ kremote tplayer remoteDaemon.cre remoteDaemon.mac
+	rm -f *~ kremote tplayer remoteDaemon.cre remoteDaemon.mac *.o
+
+style:
+	#‑‑align‑pointer=name To use when will really work
+	astyle --indent=spaces=4 -a *c *h 

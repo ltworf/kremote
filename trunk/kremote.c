@@ -23,8 +23,9 @@ int main(int argc, char * argv[]) {
     //Start the daemon
     pipe(tpipe);//Creates the pipe
     tpid=fork();//Forks
-    if (tpid<0) exit(1); //An error occured
-    if (tpid==0) {//Child
+    if (tpid<0) { //An error occured
+        exit(1); 
+    } else if (tpid==0) {//Child
         fclose (stdout); //Closing the stdout
         close (tpipe[0]); //Closes unused end of the pipe
         dup(tpipe[1]); //Redirects the stdout
@@ -46,7 +47,6 @@ int main(int argc, char * argv[]) {
 #else
     system("dcop knotify Notify notify ready kremote \"Ready to work\" '' '' 16 0");
 #endif
-
 
     char buf;//Buffer containing the remote command issued
     int shift=FALSE;
@@ -72,7 +72,7 @@ void action (char cmd, int shift) {
     else if (isAmarok()==TRUE) mode=AMAROK;
     else mode=NO_PLAYER;
 
-    char * command;
+    char * command=NULL;
     if (mode==KAFFEINE) {
         switch (cmd) {
 
@@ -263,13 +263,16 @@ void action (char cmd, int shift) {
 }
 
 
-
-
 /**
 	Returns true if Kaffeine is running
 */
 int isKaffeine() {
+#ifdef KDE4
+    if (system("qdbus |fgrep org.kde.kaffeine")==0) return TRUE;
+#else
     if (system("dcop |fgrep kaffeine")==0) return TRUE;
+#endif
+
     return FALSE;
 }
 
@@ -296,4 +299,3 @@ void closeDaemon() {
     printf("Closing remote control daemon...\n");
     kill(tpid, SIGINT);//Sending a SIGINT to the daemon, so it will exit
 }
-

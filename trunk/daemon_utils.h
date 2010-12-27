@@ -18,8 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @author Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
+#ifndef KREMOTE_DAEMON_UTILS_H
+#define KREMOTE_DAEMON_UTILS_H
+
+
 #include <unistd.h>
 #include <stdlib.h>
        
 void version();
 void help();
+
+#endif

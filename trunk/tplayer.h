@@ -18,15 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @author Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <signal.h>
-#include <sys/wait.h>
+#ifndef KREMOTE_TPLAYER_H
+#define KREMOTE_TPLAYER_H
+
 
 void terminate(int);
 void closeDaemon();
 const int TRUE=1;
 const int FALSE=0;
 
+#endif

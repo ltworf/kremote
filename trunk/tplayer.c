@@ -18,6 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @author Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <signal.h>
+#include <sys/wait.h>
+
 #include "tplayer.h"
 
 
@@ -112,6 +119,7 @@ int main(int argc, char * argv[]) {
         //Issues the command to mplayer
         write(mpipe[1],cmd,1);
     }
+    exit(1);
 }
 
 void terminate(int signum) {

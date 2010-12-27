@@ -18,11 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @author Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <string.h>
+
+#ifndef KREMOTE_MAC_H
+#define KREMOTE_MAC_H
 
 #define FALSE 0
 #define TRUE 1
@@ -40,21 +38,4 @@ void button(char button);
 #define NEXT 6
 #define EJECT 3
 
-/*#define STOP 1487340877
-
-#define PLAY 5
-#define FASTBACK 2022114637# Weborf
-#define FASTFORW -133757619
-#define MUTE -200604339
-#define SHIFT 618333517
-
-#define UP 1153107277
-#define DOWN 1420494157
-#define ENTER 1687881037
-#define LEFT -1537538739
-#define RIGHT -467991219
-#define MENU -1270151859
-
-#define FULLSCREEN -735378099
-#define OSD -1804925619
-*/
+#endif

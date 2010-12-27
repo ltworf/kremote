@@ -18,11 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @author Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <signal.h>
+#ifndef KREMOTE_KREMOTE_H
+#define KREMOTE_KREMOTE_H
+
 
 #define TRUE 1
 #define FALSE 0
@@ -40,3 +38,4 @@ int isAmarok();
 void action (char,int);
 
 
+#endif

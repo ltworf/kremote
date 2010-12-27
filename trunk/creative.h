@@ -18,6 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @author Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
+#ifndef KREMOTE_CREATIVE_H
+#define KREMOTE_CREATIVE_H
+
+
 #define FALSE 0
 #define TRUE 1
 
@@ -52,5 +56,4 @@ void version();
 #define FULLSCREEN -735378099
 #define OSD -1804925619
 
-
-
+#endif

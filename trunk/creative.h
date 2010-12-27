@@ -1,8 +1,8 @@
 /*
 Kremote
-Copyright (C) 2009  Salvo "LtWorf" Tomaselli
+Copyright (C) 2010  Salvo "LtWorf" Tomaselli
 
-Weborf is free software: you can redistribute it and/or modify
+Kremote is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
@@ -17,16 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 @author Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <termios.h>
-
 
 #define FALSE 0
 #define TRUE 1

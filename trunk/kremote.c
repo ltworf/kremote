@@ -75,6 +75,50 @@ void action (char cmd, int shift) {
     char * command;
     if (mode==KAFFEINE) {
         switch (cmd) {
+
+#ifdef KDE4
+            //Basic controls
+        case 'p':
+        case 'P':
+            command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.Pause";
+            break;
+        case 'S':
+            command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.Stop";
+            break;
+        case 'J':
+            command="qdbus org.kde.kaffeine /MainApplication org.kde.KApplication.quit";
+            break;//Not sure if have to keep that
+
+            //Position
+        case '<':
+            command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.Prev";
+            break;
+        case '>':
+            command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.Next";
+            break;
+        case '«':
+            command="m=`qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.PositionGet`-5000; p=`echo $m|bc`; qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.PositionSet $p";
+            break;
+        case '»':
+            command="m=`qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.PositionGet`+5000; p=`echo $m|bc`; qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.PositionSet $p";
+            break;
+
+            //Volume
+        case '+':
+            command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.IncreaseVolume";
+            break;
+        case '-':
+            command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.DecreaseVolume";
+            break;
+        case 'M':
+            command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.ToggleMuted";
+            break;
+
+            //Screen
+        case 'F':
+            command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.ToggleFullScreen";
+            break;
+#else
             //Basic controls
         case 'P':
             command="dcop kaffeine KaffeineIface play";
@@ -118,9 +162,7 @@ void action (char cmd, int shift) {
         case 'F':
             command="dcop kaffeine KaffeineIface fullscreen";
             break;
-
-
-
+#endif
         }
     } else if (mode==AMAROK) {
         switch (cmd) {

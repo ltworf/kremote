@@ -1,7 +1,3 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <termios.h>
 /*
 Kremote
 Copyright (C) 2009  Salvo "LtWorf" Tomaselli
@@ -26,6 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdlib.h>
 #include <string.h>
 #include <signal.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <termios.h>
+
 
 #define FALSE 0
 #define TRUE 1

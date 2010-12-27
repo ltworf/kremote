@@ -61,7 +61,14 @@ int main(int argc, char * argv[]) {
         action(buf, shift); //Will do the necessary action
 
     }
-
+    
+    //should never be reached
+#ifdef KDE4
+    system("kdialog --title kremote --passivepopup \"Device listener failure\"");
+#else
+    system("dcop knotify Notify notify ready kremote \"Device listener failure\" '' '' 16 0");
+#endif    
+    exit(1);
 }
 
 void action (char cmd, int shift) {

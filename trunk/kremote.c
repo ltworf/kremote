@@ -201,10 +201,10 @@ void action (char cmd, int shift) {
             command="qdbus org.kde.amarok /Player Next";
             break;
         case '«':
-            command="dcop amarok player seekRelative -";
+            command="m=`qdbus org.kde.amarok /Player PositionGet`-10000; p=`echo $m |bc`; qdbus org.kde.amarok /Player PositionSet $p";
             break;
         case '»':
-            command="dcop amarok player seekRelative +10";
+            command="m=`qdbus org.kde.amarok /Player PositionGet`+10000; p=`echo $m |bc`; qdbus org.kde.amarok /Player PositionSet $p";
             break;
 #else
             //Volume
@@ -240,10 +240,10 @@ void action (char cmd, int shift) {
             command="dcop amarok player next";
             break;
         case '«':
-            command="m=`qdbus org.kde.amarok /Player PositionGet`-10000; p=`echo $m |bc`; qdbus org.kde.amarok /Player PositionSet $p";
+            command="dcop amarok player seekRelative -";
             break;
         case '»':
-            command="m=`qdbus org.kde.amarok /Player PositionGet`+10000; p=`echo $m |bc`; qdbus org.kde.amarok /Player PositionSet $p";
+            command="dcop amarok player seekRelative +10";
             break;
 #endif
         }

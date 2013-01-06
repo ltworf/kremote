@@ -45,7 +45,7 @@ int main(int argc, char * argv[]) {
             if (0 != strstr(argv[i],"version")) version();
             if (0 != strstr(argv[i],"help")) help();
         } else if (argv[i][0]==45) { //Short argument
-            if (0 != strstr(argv[i], "V")) version();
+            if (0 != strstr(argv[i], "v")) version();
             if (0 != strstr(argv[i], "h")) help();
             if (0 != strstr(argv[i], "l")) shortOut=FALSE;
         } else { //File.

@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void version() {
     printf("Remote control daemon, version 1\n");
+    exit(0);
 }
 
 void help() {

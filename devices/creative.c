@@ -58,7 +58,7 @@ int main(int argc, char * argv[]) {
             if (0 != strstr(argv[i],"help")) help();
 
         } else if (argv[i][0]==45) { //Short argument
-            if (0 != strstr(argv[i], "V")) version();
+            if (0 != strstr(argv[i], "v")) version();
             if (0 != strstr(argv[i], "h")) help();
             if (0 != strstr(argv[i], "l")) shortOut=FALSE;
 
@@ -103,10 +103,10 @@ void button (int button) {
     else if (button==FASTFORW)shortOut==FALSE? printf("FastForw\n"):printf("»");
     else if (button==UP) shortOut==FALSE?printf("Up\n"): printf("u");
     else if (button==DOWN) shortOut==FALSE?printf("Down\n"): printf("d");
-    else if (button==LEFT)shortOut==FALSE? printf("Left\n"): printf("l");
-    else if (button==RIGHT)shortOut==FALSE? printf("Right\n") : printf("r");
-    else if (button==ENTER)shortOut==FALSE? printf("Enter\n"): printf("K");
-    else if (button==MENU)shortOut==FALSE? printf("Menu\n"): printf("m");
+    else if (button==LEFT) shortOut==FALSE? printf("Left\n"): printf("l");
+    else if (button==RIGHT) shortOut==FALSE? printf("Right\n") : printf("r");
+    else if (button==ENTER) shortOut==FALSE? printf("Enter\n"): printf("K");
+    else if (button==MENU) shortOut==FALSE? printf("Menu\n"): printf("m");
     else if (button==FULLSCREEN) shortOut==FALSE ? printf("Fullscreen\n") : printf("F");
     else if (button==OSD) shortOut==FALSE ? printf("Osd\n") : printf("O");
     else if (button==SHIFT) shortOut==FALSE ? printf("Shift\n") : printf("s");

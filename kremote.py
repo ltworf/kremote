@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import signal
-from os import fork, pipe, kill, dup, close, read, execlp
-from sys import exit, stdin, stdout
+from os import fork, pipe, kill, dup2, close, read, execlp
+from sys import exit
 import notify2
 
 from control import Amarok, Kaffeine
@@ -35,10 +35,8 @@ def launch_daemon(daemon):
         notify('Can\'t fork',2)
         exit(1)
     elif tpid==0: #Child
-        stdout.close()
-        
         close (tpipe[0]) #Closes unused end of the pipe
-        dup(tpipe[1]) #Redirects the stdout
+        dup2(tpipe[1],1) #Redirects the stdout
         
         try:
             execlp(daemon[0],*daemon)
@@ -71,119 +69,36 @@ def main():
         action(buf, shift)
     notify('Device listener failure',1)
     exit(2)
+
+def action(buf, shift):
+    print buf,shift
     
-#void action (char cmd, int shift) {
-
-    #int mode;
-
-    #if (isKaffeine()==TRUE) mode=KAFFEINE;
-    #else if (isAmarok()==TRUE) mode=AMAROK;
-    #else mode=NO_PLAYER;
-
-    #char * command=NULL;
-    #if (mode==KAFFEINE) {
-        #switch (cmd) {
-
-##ifdef KDE4
-            #//Basic controls
-        #case 'p':
-        #case 'P':
-            #command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.Pause";
-            #break;
-        #case 'S':
-            #command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.Stop";
-            #break;
-        #case 'J':
-            #command="qdbus org.kde.kaffeine /MainApplication org.kde.KApplication.quit";
-            #break;//Not sure if have to keep that
-
-            #//Position
-        #case '<':
-            #command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.Prev";
-            #break;
-        #case '>':
-            #command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.Next";
-            #break;
-        #case '«':
-            #command="m=`qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.PositionGet`-5000; p=`echo $m|bc`; qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.PositionSet $p";
-            #break;
-        #case '»':
-            #command="m=`qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.PositionGet`+5000; p=`echo $m|bc`; qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.PositionSet $p";
-            #break;
-
-            #//Volume
-        #case '+':
-            #command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.IncreaseVolume";
-            #break;
-        #case '-':
-            #command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.DecreaseVolume";
-            #break;
-        #case 'M':
-            #command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.ToggleMuted";
-            #break;
-
-            #//Screen
-        #case 'F':
-            #command="qdbus org.kde.kaffeine /Player org.freedesktop.MediaPlayer.ToggleFullScreen";
-            #break;
-        #}
-    #} else if (mode==AMAROK) {
-        #switch (cmd) {
-##ifdef KDE4
-
-            #//Volume
-        #case '+':
-            #command="qdbus org.kde.amarok /Player VolumeDown -5";
-            #break;
-        #case '-':
-            #command="qdbus org.kde.amarok /Player VolumeDown 5";
-            #break;
-        #case 'M':
-            #command="qdbus org.kde.amarok /Player Mute";
-            #break;
-
-            #//Basic controls
-        #case 'P':
-            #command="qdbus org.kde.amarok /Player Pause";
-            #break;
-        #case 'S':
-            #command="qdbus org.kde.amarok /Player Stop";
-            #break;
-        #case 'p':
-            #command="qdbus org.kde.amarok /Player Pause";
-            #break;
-        #case 'J':
-            #command="qdbus org.kde.amarok /MainApplication quit";
-            #break;//Not sure if have to keep that
-
-            #//Position
-        #case '<':
-            #command="qdbus org.kde.amarok /Player Prev";
-            #break;
-        #case '>':
-            #command="qdbus org.kde.amarok /Player Next";
-            #break;
-        #case '«':
-            #command="m=`qdbus org.kde.amarok /Player PositionGet`-10000; p=`echo $m |bc`; qdbus org.kde.amarok /Player PositionSet $p";
-            #break;
-        #case '»':
-            #command="m=`qdbus org.kde.amarok /Player PositionGet`+10000; p=`echo $m |bc`; qdbus org.kde.amarok /Player PositionSet $p";
-            #break;
-        #}
-    #} else {//Executing Amarok
-##ifdef KDE4
-        #system("kdialog --title kremote --passivepopup \"Executing Amarok\"");
-##else
-        #system("dcop knotify Notify notify executingAmarok kremote \"Executing Amarok\" '' '' 16 0");
-##endif
-        #int pid=fork();
-        #if (pid==0)
-            #execlp("amarok","amarok",(char *)0);//Exec amarok
-    #}
-
-    #system(command);
-
-#}
+    if Kaffeine.is_running():
+        player = Kaffeine()
+    elif Amarok.is_running():
+        player = Amarok()
+    else:
+        notify('No player found',1)
+    
+    a = {
+        'p': player.pause,
+        'P': player.pause,
+        '<': player.prev,
+        '>': player.next,
+        '-': lambda: player.voldown(5),
+        '+': lambda: player.volup(5),
+        'J': player.quit,
+        'M': player.mute,
+        'S': player.stop,
+        'F': player.fullscreen,
+        '«': lambda: player.posdelta(-5000)
+        '»': lambda: player.posdelta(5000)
+    }
+    
+    try:
+        a[buf]()
+    except:
+        pass
 
 if __name__ == '__main__':
     main()

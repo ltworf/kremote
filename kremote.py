@@ -16,7 +16,7 @@ def terminate(signum):
     exit(0)
 
 def notify(message,importance=0):
-    icons=('multimedia-player','multimedia-player','multimedia-player')
+    icons=('multimedia-player','face-plain','face-sad')
     n = notify2.Notification('kremote', message, icons[importance])
     n.show()
     
@@ -91,8 +91,8 @@ def action(buf, shift):
         'M': player.mute,
         'S': player.stop,
         'F': player.fullscreen,
-        '«': lambda: player.posdelta(-5000)
-        '»': lambda: player.posdelta(5000)
+        '«': lambda: player.posdelta(-5000),
+        '»': lambda: player.posdelta(5000),
     }
     
     try:

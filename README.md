@@ -18,15 +18,9 @@ $ kremote.py -D "command line to the device handler"
 Device handlers
 ===============
 
-- HTTP
-This provides a web interface for a remote, intended to be used with a mobile
-phone or similar device.
+- HTTP: provides a web interface for a remote, intended to be used with a mobile phone or similar device.
+- Creative: should work out of the box
+- Apple: the file apple.h needs to be edited with the right constants because currently it can work only with my remote
 
-- Apple
 ![ScreenShot](https://raw.github.com/ltworf/kremote/master/doc/apple.jpg)
-
-The file apple.h needs to be edited with the right constants because currently
-it can work only with my remote
-
-- Creative
 ![ScreenShot](https://raw.github.com/ltworf/kremote/master/doc/creative.jpg)

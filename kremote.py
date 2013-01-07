@@ -87,6 +87,7 @@ def action(buf, shift):
         player = Amarok()
     else:
         notify('No player found',1)
+        return
     
     a = {
         'p': player.pause,

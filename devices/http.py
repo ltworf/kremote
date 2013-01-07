@@ -1,5 +1,10 @@
+#!/usr/bin/env python
+
 import argparse
+import sys
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+
+shortOut=1
 
 class Handler(BaseHTTPRequestHandler):
     @staticmethod
@@ -38,10 +43,28 @@ class Handler(BaseHTTPRequestHandler):
         
     def do_GET(self):        
         if self.path in self.buttons:
-            print self.buttons[self.path]
+            sys.stdout.write(self.buttons[self.path][shortOut])
+            sys.stdout.flush()
         self.wfile.write(Handler.htmlpage())
 
-server=HTTPServer(('',8080),Handler)
-print dir(server)
-server.serve_forever()
+def main():
+    global shortOut
+    
+    parser = argparse.ArgumentParser(description='kremote HTTP daemon.')
+    parser.add_argument('-p', '--port', type=int, default=8080,
+                   help='server port')
+    parser.add_argument('-H','--hostname', dest='hostname', metavar='h',
+                   default='',
+                   help='Address to bind (default binds all the interfaces)')
+    parser.add_argument('-v','--version', action='version', version='kremote HTTP daemon 1')
+    parser.add_argument('-l','--long',help='Uses long output',action='store_true')
+    args = parser.parse_args()
+    
+    if args.long:
+        shortOut=0
+        
+    server=HTTPServer((args.hostname,args.port),Handler)
+    server.serve_forever()
 
+if __name__ == '__main__':
+    main()

@@ -2,7 +2,9 @@
 
 import argparse
 import sys
+import signal
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+
 
 shortOut=1
 
@@ -49,6 +51,8 @@ class Handler(BaseHTTPRequestHandler):
 
 def main():
     global shortOut
+    
+    signal.signal(signal.SIGINT,lambda y,x:sys.exit(0))
     
     parser = argparse.ArgumentParser(description='kremote HTTP daemon.')
     parser.add_argument('-p', '--port', type=int, default=8080,

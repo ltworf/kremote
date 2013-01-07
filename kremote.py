@@ -4,15 +4,18 @@
 import signal
 from os import fork, pipe, kill, dup2, close, read, execlp
 from sys import exit
+
+import argparse
+
 import notify2
 
 from control import Amarok, Kaffeine
 
 tpid = None
 
-def terminate(signum):
+def terminate(x,y):
     kill(tpid, signal.SIGINT)
-    notify('Closing kremote')
+    notify('Quitting...')
     exit(0)
 
 def notify(message,importance=0):
@@ -52,10 +55,15 @@ def main():
     notify2.init ('kremote')
     signal.signal(signal.SIGINT,terminate)
     
-    #TODO use arguments
-    d = ('/home/salvo/dev/kremote/devices/http.py', '-p', '8001')
+    parser = argparse.ArgumentParser(description='kremote daemon.')
+    parser.add_argument('-D','--daemon', dest='cmdline', required=True,
+                   help='Command line to start the remote daemon')
+    parser.add_argument('-v','--version', action='version', version='kremote daemon 1')
+    args = parser.parse_args()
     
-    fd = launch_daemon(d)
+    print args.cmdline
+    
+    fd = launch_daemon(args.cmdline.split(' '))
     
     shift = False
     

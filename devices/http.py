@@ -12,6 +12,10 @@ class Handler(BaseHTTPRequestHandler):
     @staticmethod
     def htmlpage():
         r=''
+        r+='HTTP/1.1 200 OK\r\n'
+        r+='Content-Type: text/html\r\n'
+        r+='Connection: close\r\n'
+        r+='\r\n'
         r+='<html><body>'
         r+='<table>'
         r+='<tr align="center">'

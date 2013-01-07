@@ -1,7 +1,7 @@
 # Kremote
 # Copyright (C) 2009  Salvo "LtWorf" Tomaselli
 # 
-# Weborf is free software: you can redistribute it and/or modify
+# kremote is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
@@ -17,41 +17,21 @@
 CC=gcc
 #DEFS=-Ddebug
 OFLAGS=-O2
-#-pedantic -Wextra
-CFLAGS=-Wall $(DEFS) $(ARCHFLAGS)  -Wformat
-LDFLAGS=-lpthread
-#ARCHFLAGS=-m64
-
-all: macbook creative mplayer kremote
-
-macbook: mac.o daemon_utils.o
-	echo "Compiling the MacBook daemon"
-	$(CC) -ggdb3 $(LDFLAGS) $(ARCHFLAGS) $+ -o $@		
-	#gcc -O2 -o remoteDaemon.mac mac.c
-
-creative: creative.o daemon_utils.o
-	echo "Compiling the creative daemon"
-	$(CC) -ggdb3 $(LDFLAGS) $(ARCHFLAGS) $+ -o $@		
-	#gcc -O2 -o remoteDaemon.cre main.c
-
-mplayer: tplayer.o
-	echo "Compiling mplayer wrapper"
-	$(CC) -ggdb3 $(LDFLAGS) $(ARCHFLAGS) $+ -o $@		
-	#gcc -O2 -o tplayer tplayer.c
+CFLAGS=-Wall $(DEFS) $(ARCHFLAGS)  -Wformat -pedantic -Wextra
 
 kremote: kremote.o
-	echo "Compiling kremote daemon"
-	$(CC) -ggdb3 $(LDFLAGS) $(ARCHFLAGS) $+ -o $@		
-	#gcc -O2 -o kremote kremote.c
+	$(CC) -ggdb3 $(LDFLAGS) $(ARCHFLAGS) $+ -o $@
 
-main.c: main.h
-tplayer.c: tplayer.h
-mac.c: mac.h
+mplayer: tplayer.o
+	$(CC) -ggdb3 $(LDFLAGS) $(ARCHFLAGS) $+ -o $@
+
+
+
 kremote.c: kremote.h
-daemon_utils.c: daemon_utils.h
+tplayer.c: tplayer.h
 
 clean:
-	rm -f *~ kremote tplayer remoteDaemon.cre remoteDaemon.mac *.o
+	rm -f *~ kremote tplayer *.o
 
 style:
 	#‑‑align‑pointer=name To use when will really work

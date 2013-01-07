@@ -17,7 +17,7 @@
 CC=gcc
 #DEFS=-Ddebug
 OFLAGS=-O2
-CFLAGS=-Wall $(DEFS) $(ARCHFLAGS)  -Wformat -pedantic -Wextra
+CFLAGS=-Wall $(DEFS) $(ARCHFLAGS)  -Wformat -Wextra
 #ARCHFLAGS=-m64
 
 all: macbook creative

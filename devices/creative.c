@@ -89,27 +89,69 @@ int main(int argc, char * argv[]) {
     }
 
 }
-void button (int button) {
-    if (button==PLAY ) shortOut==FALSE?printf("Play\n"):printf("P");
-    else if (button==STOP) shortOut==FALSE?printf("Stop\n"):printf("S");
-    else if (button==PAUSE) shortOut==FALSE?printf("Pause\n"):printf("p");
-    else if (button==EJECT) shortOut==FALSE?printf("Eject\n"):printf("J");
-    else if (button==PREV) shortOut==FALSE?printf("Prev\n"):printf("<");
-    else if (button==NEXT) shortOut==FALSE?printf("Next\n"):printf(">");
-    else if (button==MUTE) shortOut==FALSE?printf("Mute\n"):printf("M");
-    else if (button==VOLUP)shortOut==FALSE? printf("VolUp\n"):printf("+");
-    else if (button==VOLDOWN) shortOut==FALSE?printf("VolDown\n"):printf("-");
-    else if (button==FASTBACK)shortOut==FALSE? printf("FastBack\n"):printf("«");
-    else if (button==FASTFORW)shortOut==FALSE? printf("FastForw\n"):printf("»");
-    else if (button==UP) shortOut==FALSE?printf("Up\n"): printf("u");
-    else if (button==DOWN) shortOut==FALSE?printf("Down\n"): printf("d");
-    else if (button==LEFT) shortOut==FALSE? printf("Left\n"): printf("l");
-    else if (button==RIGHT) shortOut==FALSE? printf("Right\n") : printf("r");
-    else if (button==ENTER) shortOut==FALSE? printf("Enter\n"): printf("K");
-    else if (button==MENU) shortOut==FALSE? printf("Menu\n"): printf("m");
-    else if (button==FULLSCREEN) shortOut==FALSE ? printf("Fullscreen\n") : printf("F");
-    else if (button==OSD) shortOut==FALSE ? printf("Osd\n") : printf("O");
-    else if (button==SHIFT) shortOut==FALSE ? printf("Shift\n") : printf("s");
+void button (int btn) {
+    switch (btn) {
+        case PLAY:
+            shortOut==FALSE?printf("Play\n"):printf("P");
+            break;
+        case STOP:
+            shortOut==FALSE?printf("Stop\n"):printf("S");
+            break;
+        case PAUSE:
+            shortOut==FALSE?printf("Pause\n"):printf("p");
+            break;
+        case EJECT:
+            shortOut==FALSE?printf("Eject\n"):printf("J");
+            break;
+        case PREV:
+            shortOut==FALSE?printf("Prev\n"):printf("<");
+            break;
+        case NEXT:
+            shortOut==FALSE?printf("Next\n"):printf(">");
+            break;
+        case MUTE:
+            shortOut==FALSE?printf("Mute\n"):printf("M");
+            break;
+        case VOLUP:
+            shortOut==FALSE? printf("VolUp\n"):printf("+");
+            break;
+        case VOLDOWN:
+            shortOut==FALSE?printf("VolDown\n"):printf("-");
+            break;
+        case FASTBACK:
+            shortOut==FALSE? printf("FastBack\n"):printf("«");
+            break;
+        case FASTFORW:
+            shortOut==FALSE? printf("FastForw\n"):printf("»");
+            break;
+        case UP:
+            shortOut==FALSE?printf("Up\n"): printf("u");
+            break;
+        case DOWN:
+            shortOut==FALSE?printf("Down\n"): printf("d");
+            break;
+        case LEFT:
+            shortOut==FALSE? printf("Left\n"): printf("l");
+            break;
+        case RIGHT:
+            shortOut==FALSE? printf("Right\n") : printf("r");
+            break;
+        case ENTER:
+            shortOut==FALSE? printf("Enter\n"): printf("K");
+            break;
+        case MENU:
+            shortOut==FALSE? printf("Menu\n"): printf("m");
+            break;
+        case FULLSCREEN:
+            shortOut==FALSE ? printf("Fullscreen\n") : printf("F");
+            break;
+        case OSD:
+            shortOut==FALSE ? printf("Osd\n") : printf("O");
+            break;
+        case SHIFT:
+            shortOut==FALSE ? printf("Shift\n") : printf("s");
+            break;
+    }
 
     fflush(stdout);
 
